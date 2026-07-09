@@ -202,13 +202,26 @@
 
 <script>
     async function applyStyle(textureFile, basePrice) {
+        // 1. Update the price text instantly
         document.getElementById("price").innerText = basePrice;
+        
         const modelViewer = document.querySelector("#seat");
-        if (modelViewer.model) {
-            // Searches the 3D map array grid structure safely
-            const material = modelViewer.model.materials[0];
-            const texture = await modelViewer.createTexture(textureFile);
-            material.pbrMetallicRoughness.baseColorTexture.setTexture(texture);
+        if (!modelViewer.model) return;
+
+        // 2. Create the digital leather texture from your uploaded JPG
+        const texture = await modelViewer.createTexture(textureFile);
+
+        // 3. BULLETPROOF FIX: Check if the file has an official material layer. 
+        // If it doesn't, force-apply it directly to the 3D seat mesh geometry itself.
+        if (modelViewer.model.materials && modelViewer.model.materials.length > 0) {
+            modelViewer.model.materials[0].pbrMetallicRoughness.baseColorTexture.setTexture(texture);
+        } else {
+            // If phone scan has no materials, map it to the raw engine mesh surfaces
+            modelViewer.model.scenegraph.all((object) => {
+                if (object.material) {
+                    object.material.pbrMetallicRoughness.baseColorTexture.setTexture(texture);
+                }
+            });
         }
     }
 </script>
