@@ -1,16 +1,19 @@
+---
+layout: default
+title: SaddleCrafts Design Studio
+---
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SaddleCrafts Studio</title>
     <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
     <style>
-        body { font-family: 'Arial', sans-serif; background: #0b0b0b; color: #fff; margin: 0; padding: 20px; text-align: center; }
-        .container { max-width: 800px; margin: 0 auto; background: #141414; padding: 20px; border-radius: 12px; border: 1px solid #222; }
-        model-viewer { width: 100%; height: 450px; background-color: #1a1a1a; border-radius: 8px; }
+        .container { max-width: 800px; margin: 20px auto; background: #141414; padding: 20px; border-radius: 12px; border: 1px solid #222; text-align: center; color: #fff; }
+        model-viewer { width: 100%; height: 450px; background-color: #1a1a1a; border-radius: 8px; margin: 0 auto; }
         .price-tag { font-size: 24px; color: #d4af37; margin: 20px 0; font-weight: bold; }
-        .btn-group { display: flex; justify-content: center; gap: 15px; margin-top: 15px; }
+        .btn-group { display: flex; justify-content: center; gap: 15px; margin-top: 15px; flex-wrap: wrap; }
         button { background: #d4af37; color: #000; border: none; padding: 12px 24px; font-weight: bold; border-radius: 6px; cursor: pointer; transition: 0.2s; }
         button:hover { background: #fff; }
     </style>
@@ -34,7 +37,6 @@
     </div>
 </div>
 
-    
 <script>
     async function applyStyle(textureFile, basePrice) {
         // Update the price on screen instantly
