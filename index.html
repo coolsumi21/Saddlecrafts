@@ -7,30 +7,196 @@
     <!-- Loads Google's 3D engine safely -->
     <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
     <style>
-        body { font-family: Arial, sans-serif; background: #0b0b0b; color: #fff; margin: 0; padding: 20px; text-align: center; }
-        .container { max-width: 800px; margin: 0 auto; background: #141414; padding: 20px; border-radius: 12px; border: 1px solid #222; }
-        model-viewer { width: 100%; height: 450px; background-color: #1a1a1a; border-radius: 8px; margin: 0 auto; }
-        .price-tag { font-size: 24px; color: #d4af37; margin: 20px 0; font-weight: bold; }
-        .btn-group { display: flex; justify-content: center; gap: 15px; margin-top: 15px; flex-wrap: wrap; }
-        button { background: #d4af37; color: #000; border: none; padding: 12px 24px; font-weight: bold; border-radius: 6px; cursor: pointer; transition: 0.2s; }
-        button:hover { background: #fff; }
+        /* Modern Dark Luxury Brand Theme Styles */
+        :root {
+            --bg-color: #050505;
+            --card-bg: #111111;
+            --gold-accent: #d4af37;
+            --text-main: #ffffff;
+            --text-muted: #888888;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .studio-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            max-width: 1200px;
+            width: 100%;
+            background: var(--card-bg);
+            border-radius: 16px;
+            border: 1px solid #222;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+            margin: 20px;
+        }
+
+        /* Left Side: 3D Studio Window Frame */
+        .viewer-pane {
+            background: #161616;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-right: 1px solid #222;
+        }
+
+        model-viewer {
+            width: 100%;
+            height: 550px;
+            --poster-color: transparent;
+        }
+
+        /* Right Side: Options and Configurations Window */
+        .control-pane {
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .brand-header h1 {
+            font-size: 28px;
+            letter-spacing: 4px;
+            margin: 0 0 5px 0;
+            font-weight: 700;
+        }
+
+        .brand-header p {
+            color: var(--text-muted);
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin: 0 0 30px 0;
+        }
+
+        .price-box {
+            background: #1a1a1a;
+            border-left: 4px solid var(--gold-accent);
+            padding: 15px 20px;
+            border-radius: 4px;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .price-label {
+            color: var(--text-muted);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .price-amount {
+            font-size: 32px;
+            color: var(--gold-accent);
+            font-weight: bold;
+            margin-top: 5px;
+        }
+
+        .option-group h3 {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-main);
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .btn-matrix {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        button {
+            background: #1c1c1c;
+            color: var(--text-main);
+            border: 1px solid #333;
+            padding: 16px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        button:hover {
+            border-color: var(--gold-accent);
+            background: #222;
+            transform: translateX(4px);
+        }
+
+        button::after {
+            content: '→';
+            color: var(--text-muted);
+            transition: color 0.3s;
+        }
+
+        button:hover::after {
+            color: var(--gold-accent);
+        }
+
+        /* Responsive Breakpoint for Mobile Phones */
+        @media (max-width: 768px) {
+            .studio-layout {
+                grid-template-columns: 1fr;
+            }
+            .viewer-pane {
+                border-right: none;
+                border-bottom: 1px solid #222;
+            }
+            model-viewer {
+                height: 350px;
+            }
+            .control-pane {
+                padding: 25px;
+            }
+        }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h1>SADDLECRAFTS DESIGN STUDIO</h1>
+<div class="studio-layout">
     
-    <!-- Virtual 3D Window looking for your files -->
-    <model-viewer id="seat" src="my-scanned-seat.glb" camera-controls shadow-intensity="1" ar></model-viewer>
+    <!-- Visual Display Box -->
+    <div class="viewer-pane">
+        <model-viewer id="seat" src="my-scanned-seat.glb" camera-controls shadow-intensity="1.5" environment-image="neutral" ar></model-viewer>
+    </div>
 
-    <div class="price-tag">Total Price: $<span id="price">150</span> USD</div>
+    <!-- Interface Details Box -->
+    <div class="control-pane">
+        <div class="brand-header">
+            <h1>SADDLECRAFTS</h1>
+            <p>Bespoke Customization Engine</p>
+        </div>
 
-    <h3>Choose Your Style:</h3>
-    <div class="btn-group">
-        <button onclick="applyStyle('standard-leather.jpg', 150)">Standard Smooth</button>
-        <button onclick="applyStyle('diamond-pattern.JPG', 185)">Premium Diamond Stitch</button>
-        <button onclick="applyStyle('ribbed-pattern.jpg', 175)">Vintage Ribbed Stitch</button>
+        <div class="price-box">
+            <div class="price-label">Estimated Configuration Price</div>
+            <div class="price-amount">$<span id="price">150</span> USD</div>
+        </div>
+
+        <div class="option-group">
+            <h3>Select Seat Variant Style</h3>
+            <div class="btn-matrix">
+                <button onclick="applyStyle('fabric_leather_02_diff_4k.jpg', 150)">Standard Smooth Leather</button>
+                <button onclick="applyStyle('diamond-pattern.JPG', 185)">Premium Diamond Stitch</button>
+                <button onclick="applyStyle('ribbed-pattern.jpg', 175)">Vintage Ribbed Stitch</button>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -39,6 +205,7 @@
         document.getElementById("price").innerText = basePrice;
         const modelViewer = document.querySelector("#seat");
         if (modelViewer.model) {
+            // Searches the 3D map array grid structure safely
             const material = modelViewer.model.materials[0];
             const texture = await modelViewer.createTexture(textureFile);
             material.pbrMetallicRoughness.baseColorTexture.setTexture(texture);
